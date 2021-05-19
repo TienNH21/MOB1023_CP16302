@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package buoi1;
+package buoi12_oop;
 
 /**
  *
@@ -16,7 +16,6 @@ public class MainClass {
             "UDPM",
             "Nguyen Van A",
             1,
-            "Ha Noi",
             "Ha Noi"
         );
         

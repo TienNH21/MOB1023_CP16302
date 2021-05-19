@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package buoi1;
+package buoi12_oop;
 
 import java.util.ArrayList;
 
@@ -19,4 +19,6 @@ public interface QuanLy {
     public ArrayList<Nguoi> xuatDanhSach();
     
     public Nguoi getByViTri(int viTri);
+
+    public void taoSvAo();
 }

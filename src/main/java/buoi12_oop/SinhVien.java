@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package buoi1;
+package buoi12_oop;
 
 /**
  *
@@ -16,8 +16,8 @@ public class SinhVien extends Nguoi {
     public SinhVien() {
     }
 
-    public SinhVien(String maSV, String chuyenNganh, String hoTen, int gioiTinh, String queQuan, String diaChi) {
-        super(hoTen, gioiTinh, queQuan, diaChi);
+    public SinhVien(String maSV, String chuyenNganh, String hoTen, int gioiTinh, String queQuan) {
+        super(hoTen, gioiTinh, queQuan);
         this.maSV = maSV;
         this.chuyenNganh = chuyenNganh;
     }

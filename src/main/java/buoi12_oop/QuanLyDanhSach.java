@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package buoi1;
+package buoi12_oop;
 
 import java.util.ArrayList;
 
@@ -39,5 +39,17 @@ public class QuanLyDanhSach implements QuanLy
     @Override
     public Nguoi getByViTri(int viTri) {
         return this.danhSach.get(viTri);
+    }
+    
+    @Override
+    public void taoSvAo()
+    {
+        SinhVien sv1 = new SinhVien("PH12344", "UDPM", "Nguyen Van A", 1, "HN");
+        SinhVien sv2 = new SinhVien("PH12345", "TKTW", "Nguyen Van B", 1, "HN");
+        SinhVien sv3 = new SinhVien("PH12346", "UDPM", "Nguyen Thi C", 0, "HN");
+        
+        this.danhSach.add(sv1);
+        this.danhSach.add(sv2);
+        this.danhSach.add(sv3);
     }
 }

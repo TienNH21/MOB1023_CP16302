@@ -147,6 +147,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         btnCapNhat.setText("Sửa");
+        btnCapNhat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapNhatActionPerformed(evt);
+            }
+        });
 
         btnTaoSvAo.setText("Tạo SV Ảo");
         btnTaoSvAo.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +311,17 @@ public class MainForm extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        int viTri = this.tblSV.getSelectedRow();
+        
+        if (viTri == -1) {
+            return ;
+        }
+        
+        // Xóa trong ArrayList
+        this.qlsv.xoa(viTri);
+        
+        this.hienThiJTable();
+        this.khoiTaoUI();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void tblSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSVMouseClicked
@@ -315,9 +331,52 @@ public class MainForm extends javax.swing.JFrame {
         if (row == -1) {
             return ;
         }
-        
+
         System.out.println("---" + row);
+        DefaultTableModel dtm = (DefaultTableModel) this.tblSV.getModel();
+        String maSV = dtm.getValueAt(row, 0).toString();
+        String hoTen = dtm.getValueAt(row, 1).toString();
+        String chuyenNganh = dtm.getValueAt(row, 3).toString();
+        String queQuan = dtm.getValueAt(row, 4).toString();
+        String gioiTinh = dtm.getValueAt(row, 2).toString();
+        
+        this.txtHoTen.setText(hoTen);
+        this.txtMaSV.setText(maSV);
+        this.txtQueQuan.setText(queQuan);
+        this.cbbChuyenNganh.setSelectedItem(chuyenNganh);
+        
+        if (gioiTinh.equals("Nam")) {
+            this.radioGtNam.setSelected(true);
+        } else {
+            this.radioGtNu.setSelected(true);
+        }
     }//GEN-LAST:event_tblSVMouseClicked
+
+    private void btnCapNhatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatActionPerformed
+        int viTri = this.tblSV.getSelectedRow();
+        if (viTri == -1) {
+            return ;
+        }
+        
+        String hoTen = this.txtHoTen.getText();
+        String maSV = this.txtMaSV.getText();
+        String queQuan = this.txtQueQuan.getText();
+        String chuyenNganh = this.cbbChuyenNganh.getSelectedItem().toString();
+        
+        boolean gioiTinhNam = this.radioGtNam.isSelected();
+        int gioiTinh = gioiTinhNam == true ? 1 : 0;
+        
+        SinhVien sv = new SinhVien(maSV, chuyenNganh, hoTen, gioiTinh, queQuan);
+
+        // Cập nhật giá trị SV trong ArrayList
+        this.qlsv.xuatDanhSach().set(viTri, sv);
+        
+        // Hiển thị giá trị mới trên JTable
+        this.hienThiJTable();
+        
+        // Xóa trắng form
+        this.khoiTaoUI();
+    }//GEN-LAST:event_btnCapNhatActionPerformed
 
     private void hienThiJTable()
     {

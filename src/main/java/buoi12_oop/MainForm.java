@@ -5,7 +5,12 @@
  */
 package buoi12_oop;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -69,6 +74,8 @@ public class MainForm extends javax.swing.JFrame {
         btnCapNhat = new javax.swing.JButton();
         btnTaoSvAo = new javax.swing.JButton();
         btnXoaForm = new javax.swing.JButton();
+        btnGhiFile = new javax.swing.JButton();
+        btnDocFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,6 +174,20 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        btnGhiFile.setText("Ghi file");
+        btnGhiFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGhiFileActionPerformed(evt);
+            }
+        });
+
+        btnDocFile.setText("Đọc file");
+        btnDocFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocFileActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -181,10 +202,14 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMaSV, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMaSV, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(radioGtNam)
+                                .addGap(18, 18, 18)
+                                .addComponent(radioGtNu)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -194,9 +219,11 @@ public class MainForm extends javax.swing.JFrame {
                                     .addComponent(txtQueQuan)
                                     .addComponent(cbbChuyenNganh, 0, 162, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(radioGtNam)
+                                .addGap(60, 60, 60)
+                                .addComponent(btnGhiFile)
                                 .addGap(18, 18, 18)
-                                .addComponent(radioGtNu))))
+                                .addComponent(btnDocFile)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(219, 219, 219)
                         .addComponent(jLabel1)
@@ -240,7 +267,9 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(radioGtNam)
-                    .addComponent(radioGtNu))
+                    .addComponent(radioGtNu)
+                    .addComponent(btnGhiFile)
+                    .addComponent(btnDocFile))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
@@ -250,7 +279,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(btnXoaForm))
                 .addGap(30, 30, 30)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -378,6 +407,50 @@ public class MainForm extends javax.swing.JFrame {
         this.khoiTaoUI();
     }//GEN-LAST:event_btnCapNhatActionPerformed
 
+    private void btnGhiFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiFileActionPerformed
+        ArrayList<Nguoi> list = this.qlsv.xuatDanhSach();
+        if (list.isEmpty()) {
+            return ;
+        }
+        
+        String filename = "src/main/java/buoi12_oop/data.txt";
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            
+            for (int i = 0; i < list.size(); i++) {
+                SinhVien sv = (SinhVien) list.get(i);
+                oos.writeObject(sv);
+            }
+            
+            JOptionPane.showMessageDialog(this, "Ghi file thành công");
+            oos.close();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Ghi file thất bại");
+        }
+    }//GEN-LAST:event_btnGhiFileActionPerformed
+
+    private void btnDocFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocFileActionPerformed
+        // B1: Đọc Object từ File với ObjectInputStream
+        // B2: Đưa các object đọc được vào ArrayList
+        String filename = "src/main/java/buoi12_oop/data.txt";
+        try {
+            ArrayList<Nguoi> list = new ArrayList<>();
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            
+//            while (true) {
+//                ois.
+//            }
+        } catch (Exception e) {
+            System.out.println("Đọc file thất bại");
+            e.printStackTrace();
+        }
+        hienThiJTable();
+    }//GEN-LAST:event_btnDocFileActionPerformed
+
     private void hienThiJTable()
     {
         ArrayList<Nguoi> listSV = this.qlsv.xuatDanhSach();
@@ -440,6 +513,8 @@ public class MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
+    private javax.swing.JButton btnDocFile;
+    private javax.swing.JButton btnGhiFile;
     private javax.swing.ButtonGroup btnGroupGT;
     private javax.swing.JButton btnTaoSvAo;
     private javax.swing.JButton btnThem;

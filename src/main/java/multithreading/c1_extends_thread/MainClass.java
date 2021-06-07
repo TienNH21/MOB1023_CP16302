@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package multithreading.c1_extends_thread;
 
 /**
  *
  * @author tiennh
  */
-public class DemoException {
+public class MainClass {
     public static void main(String[] args) {
-        int[] arr = new int[] { 1, 2, 3 };
-        try {
-            System.out.println(arr[2]);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        MyThread t1 = new MyThread();
+        t1.start();
+        MyThread t2 = new MyThread();
+        t2.start();
     }
 }

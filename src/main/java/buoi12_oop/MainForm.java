@@ -76,6 +76,7 @@ public class MainForm extends javax.swing.JFrame {
         btnXoaForm = new javax.swing.JButton();
         btnGhiFile = new javax.swing.JButton();
         btnDocFile = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,8 +135,8 @@ public class MainForm extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -188,6 +189,13 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        btnExit.setText("Dừng chương trình");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -208,40 +216,41 @@ public class MainForm extends javax.swing.JFrame {
                                 .addComponent(radioGtNam)
                                 .addGap(18, 18, 18)
                                 .addComponent(radioGtNu)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtQueQuan)
+                            .addComponent(cbbChuyenNganh, 0, 162, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtQueQuan)
-                                    .addComponent(cbbChuyenNganh, 0, 162, Short.MAX_VALUE)))
+                                .addGap(219, 219, 219)
+                                .addComponent(jLabel1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(btnGhiFile)
+                                .addContainerGap()
+                                .addComponent(btnThem)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnDocFile)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnXoa)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCapNhat)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnXoaForm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnTaoSvAo)))
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnThem)
-                .addGap(18, 18, 18)
-                .addComponent(btnXoa)
-                .addGap(18, 18, 18)
-                .addComponent(btnCapNhat)
-                .addGap(18, 18, 18)
-                .addComponent(btnXoaForm)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTaoSvAo)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(btnExit)
+                .addGap(50, 50, 50)
+                .addComponent(btnGhiFile)
+                .addGap(41, 41, 41)
+                .addComponent(btnDocFile)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,9 +276,7 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(radioGtNam)
-                    .addComponent(radioGtNu)
-                    .addComponent(btnGhiFile)
-                    .addComponent(btnDocFile))
+                    .addComponent(radioGtNu))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
@@ -277,7 +284,12 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(btnCapNhat)
                     .addComponent(btnTaoSvAo)
                     .addComponent(btnXoaForm))
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnExit)
+                    .addComponent(btnGhiFile)
+                    .addComponent(btnDocFile))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -433,23 +445,28 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGhiFileActionPerformed
 
     private void btnDocFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocFileActionPerformed
-        // B1: Đọc Object từ File với ObjectInputStream
-        // B2: Đưa các object đọc được vào ArrayList
         String filename = "src/main/java/buoi12_oop/data.txt";
         try {
             ArrayList<Nguoi> list = new ArrayList<>();
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
             
-//            while (true) {
-//                ois.
-//            }
+            while ( fis.available() != 0 ) {
+                SinhVien sv = (SinhVien) ois.readObject();
+                list.add(sv);
+            }
+            
+            this.qlsv.setDanhSach(list);
         } catch (Exception e) {
             System.out.println("Đọc file thất bại");
             e.printStackTrace();
         }
         hienThiJTable();
     }//GEN-LAST:event_btnDocFileActionPerformed
+
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void hienThiJTable()
     {
@@ -514,6 +531,7 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
     private javax.swing.JButton btnDocFile;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnGhiFile;
     private javax.swing.ButtonGroup btnGroupGT;
     private javax.swing.JButton btnTaoSvAo;

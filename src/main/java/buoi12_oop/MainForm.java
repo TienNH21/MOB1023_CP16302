@@ -77,6 +77,7 @@ public class MainForm extends javax.swing.JFrame {
         btnGhiFile = new javax.swing.JButton();
         btnDocFile = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnTimKiem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,6 +197,13 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        btnTimKiem.setText("Tìm kiếm");
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -232,25 +240,28 @@ public class MainForm extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(btnThem)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnXoa)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCapNhat)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnXoaForm)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnExit)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnThem)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnXoa)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTaoSvAo)))
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnCapNhat)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnXoaForm)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnTaoSvAo))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnGhiFile)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnDocFile)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnTimKiem)))))
+                        .addGap(0, 27, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(btnExit)
-                .addGap(50, 50, 50)
-                .addComponent(btnGhiFile)
-                .addGap(41, 41, 41)
-                .addComponent(btnDocFile)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +299,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExit)
                     .addComponent(btnGhiFile)
-                    .addComponent(btnDocFile))
+                    .addComponent(btnDocFile)
+                    .addComponent(btnTimKiem))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -468,6 +480,12 @@ public class MainForm extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        String maSV = JOptionPane.showInputDialog(this, "Nhập mã sinh viên",
+            "Tìm theo mã sinh viên", JOptionPane.QUESTION_MESSAGE);
+        timKiem(maSV);
+    }//GEN-LAST:event_btnTimKiemActionPerformed
+
     private void hienThiJTable()
     {
         ArrayList<Nguoi> listSV = this.qlsv.xuatDanhSach();
@@ -491,6 +509,26 @@ public class MainForm extends javax.swing.JFrame {
             
             dtm.addRow(rowData);
         }
+    }
+    
+    private void timKiem(String maSV) {
+        ArrayList<Nguoi> ds = this.qlsv.xuatDanhSach();
+        SinhVien timSV = null;
+        for (Nguoi n: ds) {
+            SinhVien sv = (SinhVien) n;
+            if (sv.getMaSV().equalsIgnoreCase(maSV)) {
+                timSV = sv;
+                break;
+            }
+        }
+        
+        if (timSV == null) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy sinh viên phù hợp");
+            return ;
+        }
+        
+        String infoSV = timSV.getHoTen() + " - " + timSV.getChuyenNganh() + " - " + timSV.getGioiTinh();
+        JOptionPane.showMessageDialog(this, infoSV, "Thông tin sinh viên", JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**
@@ -536,6 +574,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroupGT;
     private javax.swing.JButton btnTaoSvAo;
     private javax.swing.JButton btnThem;
+    private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaForm;
     private javax.swing.JComboBox<String> cbbChuyenNganh;

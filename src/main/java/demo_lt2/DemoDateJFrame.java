@@ -5,23 +5,20 @@
  */
 package demo_lt2;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author tiennh
  */
-public class DemoDate extends javax.swing.JFrame {
+public class DemoDateJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form DemoDate
+     * Creates new form DemoDateJFrame
      */
-    public DemoDate() {
+    public DemoDateJFrame() {
         initComponents();
     }
 
@@ -35,30 +32,30 @@ public class DemoDate extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtNgay = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        btnClick = new javax.swing.JButton();
-        lblKq = new javax.swing.JLabel();
         btnCheck = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtNgay = new javax.swing.JTextField();
+        lblNgay = new javax.swing.JLabel();
+        btnClick = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Ngày");
-
-        btnClick.setText("Click me");
-        btnClick.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClickActionPerformed(evt);
-            }
-        });
-
-        lblKq.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        lblKq.setText("00/00/0000");
-
-        btnCheck.setText("Kiểm tra");
+        btnCheck.setText("Check");
         btnCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCheckActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Ngày");
+
+        lblNgay.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        lblNgay.setText("01-01-2021");
+
+        btnClick.setText("Click Me");
+        btnClick.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClickActionPerformed(evt);
             }
         });
 
@@ -68,31 +65,33 @@ public class DemoDate extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblKq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtNgay))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClick)
-                    .addComponent(btnCheck))
-                .addContainerGap(75, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNgay)
+                        .addGap(57, 57, 57)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCheck)
+                    .addComponent(btnClick))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnClick)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(btnCheck))
-                        .addGap(49, 49, 49)
-                        .addComponent(lblKq, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCheck))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNgay)
+                    .addComponent(btnClick))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -116,22 +115,29 @@ public class DemoDate extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClickActionPerformed
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String date1 = sdf.format(date);
-        this.lblKq.setText(date1);
+        Date today = new Date();
+        
+        // java.util.Date
+        /*
+            20/02/2021 -> dd/MM/yyyy
+            2021/02/20 -> yyyy/MM/dd
+            2021-02-20 -> yyyy-MM-dd
+        */
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String todayStr = sdf.format(today);
+        this.lblNgay.setText(todayStr);
     }//GEN-LAST:event_btnClickActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-        String myDateStr = this.txtNgay.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String ngay = this.txtNgay.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         
         try {
-            Date date = sdf.parse(myDateStr);
-            JOptionPane.showMessageDialog(this, "Đúng định dạng");
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Sai định dạng");
+            Date date = sdf.parse(ngay);
+            JOptionPane.showMessageDialog(this, "Đã nhập đúng");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Sai định dạng ngày tháng");
         }
     }//GEN-LAST:event_btnCheckActionPerformed
 
@@ -152,20 +158,20 @@ public class DemoDate extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DemoDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DemoDateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DemoDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DemoDateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DemoDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DemoDateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DemoDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DemoDateJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DemoDate().setVisible(true);
+                new DemoDateJFrame().setVisible(true);
             }
         });
     }
@@ -175,7 +181,7 @@ public class DemoDate extends javax.swing.JFrame {
     private javax.swing.JButton btnClick;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblKq;
+    private javax.swing.JLabel lblNgay;
     private javax.swing.JTextField txtNgay;
     // End of variables declaration//GEN-END:variables
 }

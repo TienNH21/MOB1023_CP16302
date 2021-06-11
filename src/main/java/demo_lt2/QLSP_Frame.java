@@ -5,7 +5,12 @@
  */
 package demo_lt2;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -94,8 +99,18 @@ public class QLSP_Frame extends javax.swing.JFrame {
         });
 
         btnGhi.setText("Ghi file");
+        btnGhi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGhiActionPerformed(evt);
+            }
+        });
 
         btnDoc.setText("Đọc file");
+        btnDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -328,6 +343,56 @@ public class QLSP_Frame extends javax.swing.JFrame {
         int viTriMoi = viTriDangChon == -1 ? 1 : viTriDangChon + 1;
         this.tblSP.setRowSelectionInterval(viTriMoi, viTriMoi);
     }//GEN-LAST:event_btnNextRowActionPerformed
+
+    private void btnGhiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiActionPerformed
+        ArrayList<SanPham> dssp = this.qlsp.getListSP();
+        
+        String filename = "src/main/java/demo_lt2/data.txt";
+        
+        try {
+            FileOutputStream fos = new FileOutputStream(filename);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+        
+            // Cách 1: work hard
+//            for (int i = 0; i < dssp.size(); i++) {
+//                SanPham sp = dssp.get(i);
+//                oos.writeObject(sp);
+//            }
+
+            // Cách 2: work smart
+            oos.writeObject(dssp);
+            
+            oos.close();
+            JOptionPane.showMessageDialog(this, "Ghi file thành công");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ghi file thất bại");
+        }
+    }//GEN-LAST:event_btnGhiActionPerformed
+
+    private void btnDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocActionPerformed
+        String filename = "src/main/java/demo_lt2/data.txt";
+        ArrayList<SanPham> ds = new ArrayList<>();
+        try  {
+            FileInputStream fis = new FileInputStream(filename);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            
+            // Cách 1:
+//            while (fis.available() != 0) {
+//                SanPham sp = (SanPham) ois.readObject();
+//                ds.add(sp);
+//            }
+            
+            // Cách 2:
+            ds = (ArrayList<SanPham>) ois.readObject();
+            this.qlsp.setListSP(ds);
+            
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Đọc file thất bại");
+        }
+    }//GEN-LAST:event_btnDocActionPerformed
 
     private void hienThiTable() {
         ArrayList<SanPham> dssp = this.qlsp.getListSP();
